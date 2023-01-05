@@ -1,0 +1,11 @@
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\bin\Debug\ProSafe.exe.config
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\bin\Debug\ProSafe.exe
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\bin\Debug\ProSafe.pdb
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.AssemblyReference.cache
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.SuggestedBindingRedirects.cache
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.prosafe.resources
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.Properties.Resources.resources
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.GenerateResource.cache
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.CoreCompileInputs.cache
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.exe
+C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.pdb

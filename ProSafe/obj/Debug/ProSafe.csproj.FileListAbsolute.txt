@@ -9,3 +9,16 @@ C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.GenerateRes
 C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.CoreCompileInputs.cache
 C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.exe
 C:\Users\Tomas\source\repos\ProSafe\ProSafe\obj\Debug\ProSafe.pdb
+D:\Tomas\cprojs\ProSafe\ProSafe\bin\Debug\ProSafe.exe.config
+D:\Tomas\cprojs\ProSafe\ProSafe\bin\Debug\ProSafe.exe
+D:\Tomas\cprojs\ProSafe\ProSafe\bin\Debug\ProSafe.pdb
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.AssemblyReference.cache
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.SuggestedBindingRedirects.cache
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.prosafe.resources
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.Properties.Resources.resources
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.GenerateResource.cache
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.CoreCompileInputs.cache
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.exe
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.pdb
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.VolumeCreateWizard.resources
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.Load.resources

@@ -22,3 +22,6 @@ D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.exe
 D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.pdb
 D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.VolumeCreateWizard.resources
 D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.Load.resources
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.About.resources
+D:\Tomas\cprojs\ProSafe\ProSafe\bin\Debug\CredentialManagement.dll
+D:\Tomas\cprojs\ProSafe\ProSafe\obj\Debug\ProSafe.csproj.CopyComplete

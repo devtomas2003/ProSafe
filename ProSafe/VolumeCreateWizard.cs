@@ -131,8 +131,10 @@ namespace ProSafe
             process.StandardInput.WriteLine("exit");
             process.WaitForExit();
             FileEncrypt(Path.GetTempPath() + "storagedisk.vhd", pass);
-
             File.Delete(Path.GetTempPath() + "storagedisk.vhd");
+            load.Hide();
+            MessageBox.Show("Volume created with successfully!", "Volume Creation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
         }
         private static byte[] GenerateRandomSalt()
         {
@@ -175,12 +177,10 @@ namespace ProSafe
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Unmount Encryption - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                load.Close();
-                this.Close();
                 cs.Close();
                 fsCrypt.Close();
             }

@@ -49,22 +49,24 @@ namespace ProSafe
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usersGuideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drives = new System.Windows.Forms.DataGridView();
-            this.drive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createVolume = new System.Windows.Forms.Button();
             this.unmount = new System.Windows.Forms.Button();
             this.unmountAll = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtPass = new System.Windows.Forms.TextBox();
             this.exit = new System.Windows.Forms.Button();
             this.mount = new System.Windows.Forms.Button();
             this.btnSelectBucket = new System.Windows.Forms.Button();
             this.filePath = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.txtPass = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.drive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.volId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.drives)).BeginInit();
             this.panel1.SuspendLayout();
@@ -102,6 +104,7 @@ namespace ProSafe
             this.createNewVolumeToolStripMenuItem.Name = "createNewVolumeToolStripMenuItem";
             this.createNewVolumeToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
             this.createNewVolumeToolStripMenuItem.Text = "Create New Volume";
+            this.createNewVolumeToolStripMenuItem.Click += new System.EventHandler(this.createNewVolumeToolStripMenuItem_Click);
             // 
             // permanentlyDecryptToolStripMenuItem
             // 
@@ -193,6 +196,7 @@ namespace ProSafe
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // usersGuideToolStripMenuItem
             // 
@@ -214,7 +218,9 @@ namespace ProSafe
             this.drive,
             this.volume,
             this.size,
-            this.type});
+            this.type,
+            this.volId,
+            this.time});
             this.drives.Location = new System.Drawing.Point(2, 2);
             this.drives.MultiSelect = false;
             this.drives.Name = "drives";
@@ -227,34 +233,6 @@ namespace ProSafe
             this.drives.ShowEditingIcon = false;
             this.drives.Size = new System.Drawing.Size(705, 324);
             this.drives.TabIndex = 1;
-            // 
-            // drive
-            // 
-            this.drive.HeaderText = "Drive";
-            this.drive.Name = "drive";
-            this.drive.ReadOnly = true;
-            this.drive.Width = 50;
-            // 
-            // volume
-            // 
-            this.volume.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.volume.HeaderText = "Volume";
-            this.volume.Name = "volume";
-            this.volume.ReadOnly = true;
-            // 
-            // size
-            // 
-            this.size.HeaderText = "Size";
-            this.size.Name = "size";
-            this.size.ReadOnly = true;
-            this.size.Width = 80;
-            // 
-            // type
-            // 
-            this.type.HeaderText = "Type";
-            this.type.Name = "type";
-            this.type.ReadOnly = true;
-            this.type.Width = 70;
             // 
             // createVolume
             // 
@@ -274,6 +252,7 @@ namespace ProSafe
             this.unmount.TabIndex = 3;
             this.unmount.Text = "Unmount";
             this.unmount.UseVisualStyleBackColor = true;
+            this.unmount.Click += new System.EventHandler(this.unmount_Click);
             // 
             // unmountAll
             // 
@@ -283,6 +262,7 @@ namespace ProSafe
             this.unmountAll.TabIndex = 4;
             this.unmountAll.Text = "Unmount All";
             this.unmountAll.UseVisualStyleBackColor = true;
+            this.unmountAll.Click += new System.EventHandler(this.unmountAll_Click);
             // 
             // panel1
             // 
@@ -311,11 +291,28 @@ namespace ProSafe
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Volume";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Password";
+            // 
+            // txtPass
+            // 
+            this.txtPass.Location = new System.Drawing.Point(6, 58);
+            this.txtPass.Name = "txtPass";
+            this.txtPass.PasswordChar = '*';
+            this.txtPass.Size = new System.Drawing.Size(687, 20);
+            this.txtPass.TabIndex = 10;
+            // 
             // exit
             // 
-            this.exit.Location = new System.Drawing.Point(555, 84);
+            this.exit.Location = new System.Drawing.Point(6, 86);
             this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(138, 28);
+            this.exit.Size = new System.Drawing.Size(110, 28);
             this.exit.TabIndex = 9;
             this.exit.Text = "Exit";
             this.exit.UseVisualStyleBackColor = true;
@@ -323,9 +320,9 @@ namespace ProSafe
             // 
             // mount
             // 
-            this.mount.Location = new System.Drawing.Point(6, 84);
+            this.mount.Location = new System.Drawing.Point(561, 86);
             this.mount.Name = "mount";
-            this.mount.Size = new System.Drawing.Size(138, 28);
+            this.mount.Size = new System.Drawing.Size(132, 28);
             this.mount.TabIndex = 8;
             this.mount.Text = "Mount";
             this.mount.UseVisualStyleBackColor = true;
@@ -357,22 +354,47 @@ namespace ProSafe
             this.panel2.Size = new System.Drawing.Size(711, 330);
             this.panel2.TabIndex = 6;
             // 
-            // txtPass
+            // drive
             // 
-            this.txtPass.Location = new System.Drawing.Point(6, 58);
-            this.txtPass.Name = "txtPass";
-            this.txtPass.PasswordChar = '*';
-            this.txtPass.Size = new System.Drawing.Size(687, 20);
-            this.txtPass.TabIndex = 10;
+            this.drive.HeaderText = "Drive";
+            this.drive.Name = "drive";
+            this.drive.ReadOnly = true;
+            this.drive.Width = 50;
             // 
-            // label1
+            // volume
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Password";
+            this.volume.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.volume.HeaderText = "Volume";
+            this.volume.Name = "volume";
+            this.volume.ReadOnly = true;
+            // 
+            // size
+            // 
+            this.size.HeaderText = "Size";
+            this.size.Name = "size";
+            this.size.ReadOnly = true;
+            this.size.Width = 80;
+            // 
+            // type
+            // 
+            this.type.HeaderText = "Type";
+            this.type.Name = "type";
+            this.type.ReadOnly = true;
+            this.type.Width = 70;
+            // 
+            // volId
+            // 
+            this.volId.HeaderText = "volId";
+            this.volId.Name = "volId";
+            this.volId.ReadOnly = true;
+            this.volId.Visible = false;
+            // 
+            // time
+            // 
+            this.time.HeaderText = "time";
+            this.time.Name = "time";
+            this.time.ReadOnly = true;
+            this.time.Visible = false;
             // 
             // prosafe
             // 
@@ -421,10 +443,6 @@ namespace ProSafe
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usersGuideToolStripMenuItem;
         private System.Windows.Forms.DataGridView drives;
-        private DataGridViewTextBoxColumn drive;
-        private DataGridViewTextBoxColumn volume;
-        private DataGridViewTextBoxColumn size;
-        private DataGridViewTextBoxColumn type;
         private Button createVolume;
         private Button unmount;
         private Button unmountAll;
@@ -437,6 +455,12 @@ namespace ProSafe
         private Button mount;
         private Label label1;
         private TextBox txtPass;
+        private DataGridViewTextBoxColumn drive;
+        private DataGridViewTextBoxColumn volume;
+        private DataGridViewTextBoxColumn size;
+        private DataGridViewTextBoxColumn type;
+        private DataGridViewTextBoxColumn volId;
+        private DataGridViewTextBoxColumn time;
     }
 }
 

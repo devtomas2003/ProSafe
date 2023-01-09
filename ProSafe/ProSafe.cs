@@ -41,11 +41,14 @@ namespace ProSafe
             {
                 string history = File.ReadAllText(Path.GetTempPath() + "drives.csv");
                 string[] drivesLineHist = history.Split('\n');
-                for (int l = 0; l <= drivesLineHist.Length - 2; l++)
+                for (int l = 0; l <= drivesLineHist.Length - 1; l++)
                 {
                     string[] itens = drivesLineHist[l].Split(',');
-                    itens[0] = itens[0].ToUpper() + ":";
-                    drives.Rows.Add(itens);
+                    if (itens.Length > 1)
+                    {
+                        itens[0] = itens[0].ToUpper() + ":";
+                        drives.Rows.Add(itens);
+                    }
                 }
             }
             drives.ClearSelection();
@@ -108,6 +111,21 @@ namespace ProSafe
                 txtPass.Text = "";
                 return;
             }
+            if (drives.SelectedRows[0].Cells[1].Value.ToString() != "")
+            {
+                MessageBox.Show("There is a container mounted on this drive.", "Volume Mount - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPass.Text = "";
+                return;
+            }
+            for (int g = 0; g <= drives.RowCount - 1; g++)
+            {
+                if (drives.Rows[g].Cells[1].Value.ToString() == filePath.Text)
+                {
+                    txtPass.Text = "";
+                    MessageBox.Show("This container is already mounted.", "Volume Mount - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
             if (txtPass.Text == "")
             {
                 MessageBox.Show("Password can't be empty.", "Volume Mount - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -162,24 +180,16 @@ namespace ProSafe
                 if (File.Exists(Path.GetTempPath() + "drives.csv"))
                 {
                     string history = File.ReadAllText(Path.GetTempPath() + "drives.csv");
-                    if(history == "")
+                    File.Delete(Path.GetTempPath() + "drives.csv");
+                    List<string> drivesLineHist = history.Split('\n').ToList();
+                    drivesLineHist.Add(letterList[0].ToLower() + "," + filePath.Text + "," + lineList[lineList.Length - 16] + " " + lineList[lineList.Length - 15] + ",Normal," + lineList[3] + "," + nowTag);
+                    TextWriter tw = new StreamWriter(Path.GetTempPath() + "drives.csv");
+                    string[] newHistList = drivesLineHist.ToArray();
+                    for (int l = 0; l <= newHistList.Length-1; l++)
                     {
-                        TextWriter tw = new StreamWriter(Path.GetTempPath() + "drives.csv");
-                        tw.WriteLine(letterList[0].ToLower() + "," + filePath.Text + "," + lineList[lineList.Length - 16] + " " + lineList[lineList.Length - 15] + ",Normal," + lineList[3] + "," + nowTag);
-                        tw.Close();
+                        tw.WriteLine(drivesLineHist[l]);
                     }
-                    else
-                    {
-                        File.Delete(Path.GetTempPath() + "drives.csv");
-                        string[] drivesLineHist = history.Split('\n');
-                        drivesLineHist.Append(letterList[0].ToLower() + "," + filePath.Text + "," + lineList[lineList.Length - 16] + " " + lineList[lineList.Length - 15] + ",Normal," + lineList[3] + "," + nowTag);
-                        TextWriter tw = new StreamWriter(Path.GetTempPath() + "drives.csv");
-                        for (int l = 0; l <= drivesLineHist.Length - 2; l++)
-                        {
-                            tw.WriteLine(drivesLineHist[l]);
-                        }
-                        tw.Close();
-                    }
+                    tw.Close();
                 }
                 else
                 {
@@ -250,6 +260,11 @@ namespace ProSafe
                 MessageBox.Show("Please select a letter to close the container.", "Volume Unmount - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if(drives.SelectedRows[0].Cells[1].Value.ToString() == "")
+            {
+                MessageBox.Show("This drive is empty!", "Volume Unmount - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             System.Windows.Forms.DialogResult qrm = MessageBox.Show("Do you want to close this volume? Any work unsaved in this volume will be lost!", "Unmount Volume", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (qrm == System.Windows.Forms.DialogResult.Yes)
             {
@@ -262,14 +277,20 @@ namespace ProSafe
                 process.StartInfo.RedirectStandardInput = true;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.Start();
-                process.StandardInput.WriteLine("select vdisk file=" + Path.GetTempPath() + "disk" + drives.SelectedRows[0].Cells[5].Value + ".vhd");
+                char[] invalidChars = Path.GetInvalidFileNameChars();
+                string correctedFormatTime = drives.SelectedRows[0].Cells[5].Value.ToString();
+                foreach (char c in invalidChars)
+                {
+                    correctedFormatTime = correctedFormatTime.Replace(c.ToString(), "");
+                }
+                process.StandardInput.WriteLine("select vdisk file=" + Path.GetTempPath() + "disk" + correctedFormatTime + ".vhd");
                 process.StandardInput.WriteLine("select volume " + drives.SelectedRows[0].Cells[4].Value.ToString());
                 process.StandardInput.WriteLine("remove letter=" + drives.SelectedRows[0].Cells[0].Value.ToString().ToLower());
                 process.StandardInput.WriteLine("detach vdisk");
                 process.StandardInput.WriteLine("exit");
                 process.WaitForExit();
                 FileEncrypt(filePath, GetPass(drives.SelectedRows[0].Cells[0].Value.ToString()), drives.SelectedRows[0].Cells[5].Value.ToString());
-                File.Delete(Path.GetTempPath() + "disk" + drives.SelectedRows[0].Cells[5].Value + ".vhd");
+                File.Delete(Path.GetTempPath() + "disk" + correctedFormatTime + ".vhd");
                 drives.SelectedRows[0].Cells[1].Value = "";
                 drives.SelectedRows[0].Cells[2].Value = "";
                 drives.SelectedRows[0].Cells[3].Value = "";
@@ -278,22 +299,23 @@ namespace ProSafe
                 RemoveCredentials(drives.SelectedRows[0].Cells[0].Value.ToString());
                 string history = File.ReadAllText(Path.GetTempPath() + "drives.csv");
                 string[] drivesLineHist = history.Split('\n');
-                string[] listDrives = new string[] {};
-                for (int l = 0; l <= drivesLineHist.Length - 2; l++)
+                List<string> listDrives = new List<string>(); ;
+                for (int l = 0; l <= drivesLineHist.Length - 1; l++)
                 {
                     string[] itens = drivesLineHist[l].Split(',');
                     if(itens.Length > 0)
                     {
                         if (itens[0].ToUpper() + ":" != drives.SelectedRows[0].Cells[0].Value.ToString())
                         {
-                            listDrives.Append(drivesLineHist[l]);
+                            listDrives.Add(drivesLineHist[l]);
                         }
                     }
                 }
+                string[] drivesList = listDrives.ToArray();
                 File.Delete(Path.GetTempPath() + "drives.csv");
                 TextWriter tw = new StreamWriter(Path.GetTempPath() + "drives.csv");
-                for (int a = 0; a <= listDrives.Length - 1; a++){
-                    tw.WriteLine(listDrives[a]);
+                for (int a = 0; a <= drivesList.Length - 1; a++){
+                    tw.WriteLine(drivesList[a]);
                 }
                 tw.Close();
                 drives.ClearSelection();
@@ -328,7 +350,13 @@ namespace ProSafe
             AES.Mode = CipherMode.CFB;
             fsCrypt.Write(salt, 0, salt.Length);
             CryptoStream cs = new CryptoStream(fsCrypt, AES.CreateEncryptor(), CryptoStreamMode.Write);
-            FileStream fsIn = new FileStream(Path.GetTempPath() + "disk" + time + ".vhd", FileMode.Open);
+            char[] invalidChars = Path.GetInvalidFileNameChars();
+            string correctedFormatTime = time;
+            foreach (char c in invalidChars)
+            {
+                correctedFormatTime = correctedFormatTime.Replace(c.ToString(), "");
+            }
+            FileStream fsIn = new FileStream(Path.GetTempPath() + "disk" + correctedFormatTime + ".vhd", FileMode.Open);
             byte[] buffer = new byte[1048576];
             int read;
             try
@@ -382,14 +410,20 @@ namespace ProSafe
                         process.StartInfo.RedirectStandardInput = true;
                         process.StartInfo.RedirectStandardOutput = true;
                         process.Start();
-                        process.StandardInput.WriteLine("select vdisk file=" + Path.GetTempPath() + "disk" + drives.Rows[a].Cells[5].Value + ".vhd");
+                        char[] invalidChars = Path.GetInvalidFileNameChars();
+                        string correctedFormatTime = drives.Rows[a].Cells[5].Value.ToString();
+                        foreach (char c in invalidChars)
+                        {
+                            correctedFormatTime = correctedFormatTime.Replace(c.ToString(), "");
+                        }
+                        process.StandardInput.WriteLine("select vdisk file=" + Path.GetTempPath() + "disk" + correctedFormatTime + ".vhd");
                         process.StandardInput.WriteLine("select volume " + drives.Rows[a].Cells[4].Value.ToString());
                         process.StandardInput.WriteLine("remove letter=" + drives.Rows[a].Cells[0].Value.ToString().ToLower());
                         process.StandardInput.WriteLine("detach vdisk");
                         process.StandardInput.WriteLine("exit");
                         process.WaitForExit();
                         FileEncrypt(filePath, GetPass(drives.Rows[a].Cells[0].Value.ToString()), drives.Rows[a].Cells[5].Value.ToString());
-                        File.Delete(Path.GetTempPath() + "disk" + drives.Rows[a].Cells[5].Value + ".vhd");
+                        File.Delete(Path.GetTempPath() + "disk" + correctedFormatTime + ".vhd");
                         drives.Rows[a].Cells[1].Value = "";
                         drives.Rows[a].Cells[2].Value = "";
                         drives.Rows[a].Cells[3].Value = "";
@@ -398,21 +432,22 @@ namespace ProSafe
                         RemoveCredentials(drives.Rows[a].Cells[0].Value.ToString());
                         string history = File.ReadAllText(Path.GetTempPath() + "drives.csv");
                         string[] drivesLineHist = history.Split('\n');
-                        string[] listDrives = new string[] { };
-                        for (int l = 0; l <= drivesLineHist.Length - 2; l++)
+                        List<string> listDrives = new List<string>(); ;
+                        for (int l = 0; l <= drivesLineHist.Length - 1; l++)
                         {
                             string[] itens = drivesLineHist[l].Split(',');
                             if (itens.Length > 0)
                             {
                                 if (itens[0].ToUpper() + ":" != drives.Rows[a].Cells[0].Value.ToString())
                                 {
-                                    listDrives.Append(drivesLineHist[l]);
+                                    listDrives.Add(drivesLineHist[l]);
                                 }
                             }
                         }
                         File.Delete(Path.GetTempPath() + "drives.csv");
                         TextWriter tw = new StreamWriter(Path.GetTempPath() + "drives.csv");
-                        for (int b = 0; b <= listDrives.Length - 1; b++)
+                        string[] drivesList = listDrives.ToArray();
+                        for (int b = 0; b <= drivesList.Length - 1; b++)
                         {
                             tw.WriteLine(listDrives[b]);
                         }

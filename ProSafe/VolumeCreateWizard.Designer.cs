@@ -55,7 +55,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(796, 94);
             this.panel1.TabIndex = 0;
@@ -89,9 +89,9 @@
             this.groupBox1.Controls.Add(this.saveFile);
             this.groupBox1.Controls.Add(this.filePath);
             this.groupBox1.Location = new System.Drawing.Point(16, 101);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(764, 92);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -106,7 +106,7 @@
             "GB",
             "TB"});
             this.storageType.Location = new System.Drawing.Point(148, 55);
-            this.storageType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.storageType.Margin = new System.Windows.Forms.Padding(4);
             this.storageType.Name = "storageType";
             this.storageType.Size = new System.Drawing.Size(89, 24);
             this.storageType.TabIndex = 3;
@@ -114,28 +114,28 @@
             // sizeTxt
             // 
             this.sizeTxt.Location = new System.Drawing.Point(7, 55);
-            this.sizeTxt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sizeTxt.Margin = new System.Windows.Forms.Padding(4);
             this.sizeTxt.Name = "sizeTxt";
             this.sizeTxt.Size = new System.Drawing.Size(132, 22);
             this.sizeTxt.TabIndex = 2;
             // 
             // saveFile
             // 
-            this.saveFile.Location = new System.Drawing.Point(605, 21);
-            this.saveFile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.saveFile.Location = new System.Drawing.Point(638, 21);
+            this.saveFile.Margin = new System.Windows.Forms.Padding(4);
             this.saveFile.Name = "saveFile";
-            this.saveFile.Size = new System.Drawing.Size(151, 28);
+            this.saveFile.Size = new System.Drawing.Size(118, 28);
             this.saveFile.TabIndex = 1;
-            this.saveFile.Text = "Selecionar Ficheiro";
+            this.saveFile.Text = "Select File";
             this.saveFile.UseVisualStyleBackColor = true;
             this.saveFile.Click += new System.EventHandler(this.saveFile_Click);
             // 
             // filePath
             // 
             this.filePath.Location = new System.Drawing.Point(8, 23);
-            this.filePath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.filePath.Margin = new System.Windows.Forms.Padding(4);
             this.filePath.Name = "filePath";
-            this.filePath.Size = new System.Drawing.Size(588, 22);
+            this.filePath.Size = new System.Drawing.Size(622, 22);
             this.filePath.TabIndex = 0;
             // 
             // groupBox2
@@ -145,30 +145,30 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Location = new System.Drawing.Point(16, 201);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(764, 92);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Segurança";
+            this.groupBox2.Text = "Security";
             // 
             // repassword
             // 
-            this.repassword.Location = new System.Drawing.Point(148, 57);
-            this.repassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.repassword.Location = new System.Drawing.Point(131, 57);
+            this.repassword.Margin = new System.Windows.Forms.Padding(4);
             this.repassword.Name = "repassword";
             this.repassword.PasswordChar = '*';
-            this.repassword.Size = new System.Drawing.Size(607, 22);
+            this.repassword.Size = new System.Drawing.Size(624, 22);
             this.repassword.TabIndex = 3;
             // 
             // password
             // 
-            this.password.Location = new System.Drawing.Point(148, 27);
-            this.password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.password.Location = new System.Drawing.Point(131, 27);
+            this.password.Margin = new System.Windows.Forms.Padding(4);
             this.password.Name = "password";
             this.password.PasswordChar = '*';
-            this.password.Size = new System.Drawing.Size(607, 22);
+            this.password.Size = new System.Drawing.Size(624, 22);
             this.password.TabIndex = 2;
             // 
             // label4
@@ -177,9 +177,9 @@
             this.label4.Location = new System.Drawing.Point(8, 60);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(121, 16);
+            this.label4.Size = new System.Drawing.Size(115, 16);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Repita a Password";
+            this.label4.Text = "Repeat Password";
             // 
             // label3
             // 
@@ -194,7 +194,7 @@
             // createContainer
             // 
             this.createContainer.Location = new System.Drawing.Point(680, 300);
-            this.createContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.createContainer.Margin = new System.Windows.Forms.Padding(4);
             this.createContainer.Name = "createContainer";
             this.createContainer.Size = new System.Drawing.Size(100, 28);
             this.createContainer.TabIndex = 5;
@@ -205,7 +205,7 @@
             // cancel
             // 
             this.cancel.Location = new System.Drawing.Point(16, 300);
-            this.cancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancel.Margin = new System.Windows.Forms.Padding(4);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(100, 28);
             this.cancel.TabIndex = 6;
@@ -225,7 +225,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "VolumeCreateWizard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

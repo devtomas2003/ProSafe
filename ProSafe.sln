@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProSafe", "ProSafe\ProSafe.csproj", "{4116DA81-4196-4A3D-A5D6-BF24DF56A376}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ProSafe Installer", "ProSafe Installer\ProSafe Installer.vdproj", "{701741D8-6E13-4103-B92E-573D8E7491D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{4116DA81-4196-4A3D-A5D6-BF24DF56A376}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4116DA81-4196-4A3D-A5D6-BF24DF56A376}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4116DA81-4196-4A3D-A5D6-BF24DF56A376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{701741D8-6E13-4103-B92E-573D8E7491D8}.Debug|Any CPU.ActiveCfg = Debug
+		{701741D8-6E13-4103-B92E-573D8E7491D8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
